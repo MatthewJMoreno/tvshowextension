@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="tvshowapp.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+  <h1>TV Show Search</h1>
+  <form id='searchForm'>
+    <input placeholder='TV Show' id='query'></input>
+    <button>Search</button>
+  </form>
+
+  <div id='tv-shows-container'>
+    <div class='tv-show'>
+      <div class='img-container'>
+        <img src="http://static.tvmaze.com/uploads/images/original_untouched/31/78286.jpg" alt="">
+      </div>
+      <h1 class='title'>Girls</h1>
+      <div class='basic-info'>
+        <div class='star-rating'>
+          <div class='stars-outer'>
+            <div class='stars-inner' style='width: 50%'></div>
+          </div>
+        </div>
+
+        <p class='tv-rating'>TV MA</p>
+        <p class='air-information'>2012 - 2018</p>
+
+      </div>
+      <p class='summary'>This Emmy winning series is a comic look at the assorted humiliations and rare triumphs of a group of girls in their 20s</p>
+
+    </div>
+  </div>
+
+  <script src='tvshowapp.js'></script>
+</body>
+</html>
