@@ -4,26 +4,57 @@ const getTVShows = async (show) => {
   let tvShow = "http://api.tvmaze.com/search/shows?q=";
   tvShow = tvShow.concat(show);
   const response = await axios.get(tvShow);
-  let name = response.data[0].show.name;
-  console.log(name);
-  let img = response.data[0].show.image.original;
-  let rating = response.data[0].show.rating.average;
-  let summary = response.data[0].show.summary;
-  let premiereDate = response.data[0].show.premiered;
-  let status = response.data[0].show.status;
-  let genre = response.data[0].show.genres;
-  return {name: name, img: img, rating: rating, summary: summary, premiereDate: premiereDate, status: status, genre: genre};
+  return response;
 }
 
+//The API returns the top 10 tv shows but we don't use all the data it returns
+function extractTVShowData(tvShows){
+  shows = [];
+  for (const show of tvShows){
+    const name = show.show.name;
+    const img = show.show.image.original;
+    const rating = show.show.rating.average;
+    const summary = show.show.summary;
+    const premiereDate = show.show.premiered;
+    const status = show.show.status;
+    const genre = show.show.genres;
+    shows.push({name: name, img: img, rating: rating, summary: summary, premiereDate: premiereDate, status: status, genre: genre})
+  }
 
+  return shows;
+}
+
+function buildTVShowCards(tvShowData){
+  for (show of tvShowData){
+    let tvShowCard = document.createElement("div");
+    tvShowCard.className = 'tv-show';
+
+    let imgContainer = document.createElement('div');
+    imgContainer.className = 'img-container';
+
+    let img = document.createElement('img');
+    img.src = show.img;
+    imgContainer.appendChild(img);
+
+    tvShowCard.appendChild(imgContainer);
+    document.getElementById('tv-shows-container').appendChild(tvShowCard);
+  }
+}
 
 form.addEventListener('submit', function(event){
   event.preventDefault();
   let tvShow = document.getElementById('query');
-  const tvData = getTVShows(tvShow.value);
-  tvData.then((response) => {
-    console.log(response);
-    console.log(response.img);
+  const topTenTVShows = getTVShows(tvShow.value);
+  topTenTVShows.then((response) => {
+    //console.log(response);
+    //console.log(response.img);
+    if (response.data.length === 0) throw new Error("No results found");
+    const tvShowData = extractTVShowData(response.data);
+    buildTVShowCards(tvShowData);
+    console.log(tvShowData);
+  })
+  .catch(error => {
+    console.log(error);
   });
 });
 
